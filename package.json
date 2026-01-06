@@ -1,0 +1,33 @@
+{
+  "name": "feedback-ai-system",
+  "version": "1.0.0",
+  "description": "AI-powered feedback collection and analysis system",
+  "main": "pages/index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "migrate": "node scripts/migrate.js"
+  },
+  "dependencies": {
+    "next": "^13.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "swr": "^2.0.0",
+    "pg": "^8.8.0",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^13.0.0"
+  },
+  "keywords": [
+    "feedback",
+    "ai",
+    "nextjs",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "MIT"
+}
