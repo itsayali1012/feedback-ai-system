@@ -16,7 +16,7 @@
     "react-dom": "^18.0.0",
     "swr": "^2.0.0",
     "pg": "^8.8.0",
-    "openai": "^4.0.0"
+    "@google/generative-ai": "^0.21.0"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
