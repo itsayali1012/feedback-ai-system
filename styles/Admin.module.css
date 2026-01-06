@@ -414,4 +414,163 @@
       font-size: 13px;
     }
   }
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.analyticsCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.analyticsCard h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sentimentBars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sentimentBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sentimentLabel {
+  min-width: 120px;
+  font-size: 14px;
+  color: #666;
+}
+
+.bar {
+  flex: 1;
+  height: 24px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 12px;
+  transition: width 0.3s ease;
+}
+
+.sentimentValue {
+  min-width: 40px;
+  text-align: right;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.insights {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.insight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.insight:last-child {
+  border-bottom: none;
+}
+
+.insightLabel {
+  font-size: 14px;
+  color: #666;
+}
+
+.insightValue {
+  font-weight: 600;
+  color: #333;
+}
+
+.trendsCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin: 32px 0;
+}
+
+.trendsCard h2 {
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.trendsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.trend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.trend:hover {
+  transform: translateY(-2px);
+}
+
+.trendIcon {
+  font-size: 32px;
+}
+
+.trendContent {
+  flex: 1;
+}
+
+.trendValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.trendLabel {
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 1024px) {
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .trendsGrid {
+    grid-template-columns: 1fr;
+  }
+}
   

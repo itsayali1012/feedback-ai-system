@@ -41,6 +41,32 @@ export default function AdminDashboard() {
         ).toFixed(1)
       : 0;
 
+  // Additional analytics
+  const avgReviewLength = total > 0
+    ? Math.round(submissions.reduce((sum, s) => sum + (s.review?.length || 0), 0) / total)
+    : 0;
+
+  const aiResponseRate = total > 0
+    ? Math.round((submissions.filter(s => !s.aiSummary?.includes('Unable')).length / total) * 100)
+    : 0;
+
+  const recentSubmissions = submissions.filter(s => {
+    const submissionDate = new Date(s.createdAt);
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return submissionDate > weekAgo;
+  }).length;
+
+  const positiveFeedback = submissions.filter(s => s.rating >= 4).length;
+  const neutralFeedback = submissions.filter(s => s.rating === 3).length;
+  const negativeFeedback = submissions.filter(s => s.rating <= 2).length;
+
+  const sentimentData = {
+    positive: total > 0 ? Math.round((positiveFeedback / total) * 100) : 0,
+    neutral: total > 0 ? Math.round((neutralFeedback / total) * 100) : 0,
+    negative: total > 0 ? Math.round((negativeFeedback / total) * 100) : 0
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -77,12 +103,86 @@ export default function AdminDashboard() {
           <div className={styles.statValue}>{avgRating} / 5</div>
         </div>
         <div className={styles.statCard}>
+          <div className={styles.statLabel}>AI Response Rate</div>
+          <div className={styles.statValue}>{aiResponseRate}%</div>
+        </div>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>Avg Review Length</div>
+          <div className={styles.statValue}>{avgReviewLength} chars</div>
+        </div>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>This Week</div>
+          <div className={styles.statValue}>{recentSubmissions}</div>
+        </div>
+        <div className={styles.statCard}>
           <div className={styles.statLabel}>Status</div>
           <div
             className={styles.statValue}
             style={{ color: isLoading ? '#ff9800' : '#4caf50' }}
           >
             {isLoading ? 'Loading...' : 'Live'}
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.analyticsGrid}>
+        <div className={styles.analyticsCard}>
+          <h3>Sentiment Distribution</h3>
+          <div className={styles.sentimentBars}>
+            <div className={styles.sentimentBar}>
+              <span className={styles.sentimentLabel}>Positive (4-5★)</span>
+              <div className={styles.bar}>
+                <div
+                  className={styles.barFill}
+                  style={{ width: `${sentimentData.positive}%`, backgroundColor: '#4caf50' }}
+                />
+              </div>
+              <span className={styles.sentimentValue}>{sentimentData.positive}%</span>
+            </div>
+            <div className={styles.sentimentBar}>
+              <span className={styles.sentimentLabel}>Neutral (3★)</span>
+              <div className={styles.bar}>
+                <div
+                  className={styles.barFill}
+                  style={{ width: `${sentimentData.neutral}%`, backgroundColor: '#ff9800' }}
+                />
+              </div>
+              <span className={styles.sentimentValue}>{sentimentData.neutral}%</span>
+            </div>
+            <div className={styles.sentimentBar}>
+              <span className={styles.sentimentLabel}>Negative (1-2★)</span>
+              <div className={styles.bar}>
+                <div
+                  className={styles.barFill}
+                  style={{ width: `${sentimentData.negative}%`, backgroundColor: '#f44336' }}
+                />
+              </div>
+              <span className={styles.sentimentValue}>{sentimentData.negative}%</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.analyticsCard}>
+          <h3>Quick Insights</h3>
+          <div className={styles.insights}>
+            <div className={styles.insight}>
+              <span className={styles.insightLabel}>Most Common Rating:</span>
+              <span className={styles.insightValue}>
+                {Object.entries(ratings).reduce((a, b) => ratings[a[0]] > ratings[b[0]] ? a : b)[0]}★
+              </span>
+            </div>
+            <div className={styles.insight}>
+              <span className={styles.insightLabel}>Response Quality:</span>
+              <span className={styles.insightValue}>
+                {aiResponseRate >= 80 ? 'Excellent' : aiResponseRate >= 60 ? 'Good' : 'Needs Attention'}
+              </span>
+            </div>
+            <div className={styles.insight}>
+              <span className={styles.insightLabel}>Engagement Level:</span>
+              <span className={styles.insightValue}>
+                {avgReviewLength > 100 ? 'High' : avgReviewLength > 50 ? 'Medium' : 'Low'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -113,6 +213,40 @@ export default function AdminDashboard() {
               <span className={styles.count}>{ratings[rating]}</span>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className={styles.trendsCard}>
+        <h2>Recent Trends</h2>
+        <div className={styles.trendsGrid}>
+          <div className={styles.trend}>
+            <div className={styles.trendIcon}>📈</div>
+            <div className={styles.trendContent}>
+              <div className={styles.trendValue}>{recentSubmissions}</div>
+              <div className={styles.trendLabel}>Submissions this week</div>
+            </div>
+          </div>
+          <div className={styles.trend}>
+            <div className={styles.trendIcon}>⭐</div>
+            <div className={styles.trendContent}>
+              <div className={styles.trendValue}>{avgRating}</div>
+              <div className={styles.trendLabel}>Average rating</div>
+            </div>
+          </div>
+          <div className={styles.trend}>
+            <div className={styles.trendIcon}>🤖</div>
+            <div className={styles.trendContent}>
+              <div className={styles.trendValue}>{aiResponseRate}%</div>
+              <div className={styles.trendLabel}>AI response rate</div>
+            </div>
+          </div>
+          <div className={styles.trend}>
+            <div className={styles.trendIcon}>📝</div>
+            <div className={styles.trendContent}>
+              <div className={styles.trendValue}>{avgReviewLength}</div>
+              <div className={styles.trendLabel}>Avg review length</div>
+            </div>
+          </div>
         </div>
       </div>
 
