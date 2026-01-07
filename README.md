@@ -416,4 +416,5 @@ Verify database: Connect via Neon console
 
 Check OpenAI status: openai.com/status
 
-Deployment trigger
+Initial Vercel deployment trigger
+
