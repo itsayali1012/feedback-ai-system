@@ -9,6 +9,11 @@
   "start": "node scripts/migrate.js && next start",
   "lint": "next lint",
   "migrate": "node scripts/migrate.js"
+  "dev": "next dev",
+  "build": "next build",
+  "start": "node scripts/migrate.js && next start",
+  "lint": "next lint",
+  "migrate": "node scripts/migrate.js"
   },
   "dependencies": {
     "next": "^13.0.0",
